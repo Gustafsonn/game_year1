@@ -4,12 +4,13 @@ using namespace sf;
 using namespace std;
 
 const Keyboard::Key controls[4] = {
-	Keyboard::A,
-	Keyboard::Z,
-	Keyboard::Up,
-	Keyboard::Down
+    Keyboard::A,   // Player1 UP
+    Keyboard::Z,   // Player1 Down
+    Keyboard::Up,  // Player2 UP
+    Keyboard::Down // Player2 Down
 };
-const Vector2f paddleSize(25.f,100.f);
+
+const Vector2f paddleSize(25.f, 100.f);
 const float ballRadius = 10.f;
 const int gameWidth = 800;
 const int gameHeight = 600;
@@ -20,22 +21,20 @@ CircleShape ball;
 RectangleShape paddles[2];
 
 void load() {
-	for (auto &p : paddles) {
-		p.setSize(paddleSize);
-		p.setOrigin(paddleSize / 2.f);
-	}
-	ball.setRadius(ballRadius);
-	ball.setorigin(ballRadius, ballRadius)
-	paddles[0].setPosition(Vector2f(paddleOffsetWall + paddleSize.x / 2.f, gameHeight / 2.f));
-	paddles[1].setPosition(Vector2f(gameWidth - paddleOffsetWall - paddleSize.x / 2.f, gameHeight / 2.f));
-	ball.setPosition(Vector2f(gameWidth / 2.f, gameHeight / 2.f));
+    for (auto& p : paddles) {
+        p.setSize(paddleSize);
+        p.setOrigin(paddleSize / 2.f);
+    }
+    ball.setRadius(ballRadius);
+    ball.setOrigin(ballRadius, ballRadius);
+    paddles[0].setPosition(Vector2f(paddleOffsetWall + paddleSize.x / 2.f, gameHeight / 2.f));
+    paddles[1].setPosition(Vector2f(gameWidth - paddleOffsetWall - paddleSize.x / 2.f, gameHeight / 2.f));
+    ball.setPosition(Vector2f(gameWidth / 2.f, gameHeight / 2.f));
 }
 
-void Update(RenderWindow &window) {
-    // Reset clock, recalculate deltatime
+void Update(RenderWindow& window) {
     static Clock clock;
     float dt = clock.restart().asSeconds();
-    // check and consume events
     Event event;
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
@@ -44,12 +43,11 @@ void Update(RenderWindow &window) {
         }
     }
 
-    // Quit Via ESC Key
     if (Keyboard::isKeyPressed(Keyboard::Escape)) {
         window.close();
     }
 
-    // handle paddle movement
+
     float direction = 0.0f;
     if (Keyboard::isKeyPressed(controls[0])) {
         direction--;
@@ -58,10 +56,19 @@ void Update(RenderWindow &window) {
         direction++;
     }
     paddles[0].move(Vector2f(0.f, direction * paddleSpeed * dt));
+
+
+    float direction2 = 0.0f;
+    if (Keyboard::isKeyPressed(controls[2])) {
+        direction2--;
+    }
+    if (Keyboard::isKeyPressed(controls[3])) {
+        direction2++;
+    }
+    paddles[1].move(Vector2f(0.f, direction2 * paddleSpeed * dt));
 }
 
-void Render(RenderWindow &window) {
-    // Draw Everything
+void Render(RenderWindow& window) {
     window.draw(paddles[0]);
     window.draw(paddles[1]);
     window.draw(ball);
@@ -69,7 +76,7 @@ void Render(RenderWindow &window) {
 
 int main() {
     RenderWindow window(VideoMode(gameWidth, gameHeight), "PONG");
-    Load();
+    load();
     while (window.isOpen()) {
         window.clear();
         Update(window);
