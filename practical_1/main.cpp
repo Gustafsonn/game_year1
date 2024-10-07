@@ -36,12 +36,6 @@ void load() {
     paddles[1].setPosition(Vector2f(gameWidth - paddleOffsetWall - paddleSize.x / 2.f, gameHeight / 2.f));
     ball.setPosition(Vector2f(gameWidth / 2.f, gameHeight / 2.f));
     ballVelocity = { (isPlayer1Serving ? initialVelocityX : -initialVelocityX), initialVelocityY };
-    // Load font-face from res dir
-    font.loadFromFile("res/fonts/RobotoMono-Regular.ttf");
-    // Set text element to use font
-    text.setFont(font);
-    // set the character size to 24 pixels
-    text.setCharacterSize(24);
 }
 
 void Reset() {
@@ -51,10 +45,6 @@ void Reset() {
     paddles[1].setPosition(Vector2f(gameWidth - paddleOffsetWall - paddleSize.x / 2.f, gameHeight / 2.f));
     ball.setPosition(Vector2f(gameWidth / 2.f, gameHeight / 2.f));
     ballVelocity = { (isPlayer1Serving ? initialVelocityX : -initialVelocityX), initialVelocityY };
-    // Update Score Text
-    text.setString(...);
-    // Keep Score Text Centered
-    text.setPosition((gameWidth * .5f) - (text.getLocalBounds().width * .5f), 0);
 }
 
 void Update(RenderWindow& window) {
