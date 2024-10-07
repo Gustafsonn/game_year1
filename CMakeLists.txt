@@ -27,3 +27,16 @@ file(GLOB_RECURSE SOURCES 2_invaders/*.cpp 2_invaders/*.h)
 add_executable(2_INVADERS ${SOURCES} )
 target_include_directories(2_INVADERS SYSTEM PRIVATE ${SFML_INCS})
 target_link_libraries(2_INVADERS sfml-graphics)
+
+set_target_properties(2_INVADERS 
+    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+)
+
+add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
+  -E copy_directory
+    "${PROJECT_SOURCE_DIR}/res" # Source directory containing resources
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res # Target directory in the build output
+)
+
+add_dependencies(2_INVADERS copy_resources)
