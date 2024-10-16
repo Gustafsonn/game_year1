@@ -2,7 +2,7 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920,1080), "Youtube Project");
-	sf::Texture playertexture;
+	sf::Texture playerTexture;
 	playerTexture.loadFromFile("res/img/Player.png");
 	sf::Sprite player(playerTexture);
 	
