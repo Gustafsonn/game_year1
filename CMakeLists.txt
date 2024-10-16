@@ -27,3 +27,16 @@ file(GLOB_RECURSE SOURCES Youtube-game/*.cpp Youtube-game/*.h)
 add_executable(Youtube-game ${SOURCES})
 target_include_directories(Youtube-game PRIVATE ${SFML_INCS})
 target_link_libraries(Youtube-game sfml-graphics)
+
+set_target_properties(Youtube-game 
+    PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
+)
+
+add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
+  -E copy_directory
+    "${PROJECT_SOURCE_DIR}/res" # Source directory containing resources
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIGURATION>/res # Target directory in the build output
+)
+
+add_dependencies(Youtube-game copy_resources)
