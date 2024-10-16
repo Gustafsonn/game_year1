@@ -2,9 +2,14 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1920,1080), "Youtube Project");
+	
 	sf::Texture playerTexture;
 	playerTexture.loadFromFile("res/img/Player.png");
 	sf::Sprite player(playerTexture);
+	
+	sf::Texture enemyTexture;
+	enemyTexture.loadFromFile("res/img/Enemy.png");
+	sf::Sprite enemy(enemyTexture);
 	
 	while (window.isOpen()) {
 		sf::Event event;
@@ -15,6 +20,7 @@ int main() {
 		
 		window.clear();
 		window.draw(player);
+		window.draw(enemy);
 		window.display();
 	}
 	
